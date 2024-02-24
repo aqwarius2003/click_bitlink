@@ -1,14 +1,14 @@
 import requests
 import os
 from urllib.parse import urlparse
-BITLINKS_API_URL = 'https://api-ssl.bitly.com/v4/bitlinks'
+BITLINK_API = 'https://api-ssl.bitly.com/v4/bitlinks'
 
 
 def is_bitlink(token, url):
     headers = {'Authorization': f'Bearer {token}'}
     parsed_url = urlparse(url)
     bitlink_url = parsed_url.netloc + parsed_url.path
-    response = requests.get(f'{BITLINKS_API_URL}/{bitlink_url}', headers=headers)
+    response = requests.get(f'{BITLINK_API}/{bitlink_url}', headers=headers)
     if response.ok:
         return True
 
@@ -18,7 +18,7 @@ def get_shorten_link(token, url):
     if response.ok:
         headers = {'Authorization': f'Bearer {token}'}
         data_url = {'long_url': url}
-        response = requests.post(BITLINKS_API_URL, headers=headers, json=data_url)
+        response = requests.post(BITLINK_API, headers=headers, json=data_url)
         if response.ok:
             bitlink = response.json().get('link')
             return bitlink
@@ -27,7 +27,7 @@ def get_shorten_link(token, url):
 def get_count_cliks(token, url):
     headers = {'Authorization': f'Bearer {token}'}
     bitlink = url.replace('https://', '').replace('http://', '')
-    clicks_bitlink_link = f'{BITLINKS_API_URL}/{bitlink}/clicks/summary'
+    clicks_bitlink_link = f'{BITLINK_API}/{bitlink}/clicks/summary'
     response = requests.get(clicks_bitlink_link, headers=headers)
     response.raise_for_status()
     click_count = response.json()['total_clicks']
@@ -49,11 +49,11 @@ def main():
             print('При проверке количества кликов ошибка:\n{0}'.format(error))
             return
     else:
-        bitlink = get_shorten_link(token, url)
-        if bitlink:
+        try:
+            bitlink = get_shorten_link(token, url)
             print(f'Для адреса {url} \nкороткая ссылка: {bitlink}')
-        else:
-            print(f'При получении короткой ссылки произошла ошибка')
+        except requests.exceptions.HTTPError as error:
+            print('При пролучении короткой ссылки ошибка:\n{0}'.format(error))
 
 
 if __name__ == "__main__":
