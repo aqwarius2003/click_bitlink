@@ -26,8 +26,9 @@ def get_shorten_link(token, url):
 
 def get_count_cliks(token, url):
     headers = {'Authorization': f'Bearer {token}'}
-    bitlink = url.replace('https://', '').replace('http://', '')
-    clicks_bitlink_link = f'{BITLY_API}/{bitlink}/clicks/summary'
+    parsed_url = urlparse(url)
+    bitlink_url = parsed_url.netloc + parsed_url.path
+    clicks_bitlink_link = f'{BITLY_API}/{bitlink_url}/clicks/summary'
     response = requests.get(clicks_bitlink_link, headers=headers)
     response.raise_for_status()
     click_count = response.json()['total_clicks']
