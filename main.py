@@ -1,14 +1,14 @@
 import requests
 import os
 from urllib.parse import urlparse
-BITLINKS_URL = 'https://api-ssl.bitly.com/v4/bitlinks'
+BITLINKS_API_URL = 'https://api-ssl.bitly.com/v4/bitlinks'
 
 
 def is_bitlink(token, url):
     headers = {'Authorization': f'Bearer {token}'}
     parsed_url = urlparse(url)
-    bitlink = parsed_url.netloc + parsed_url.path
-    response = requests.get(f'{BITLINKS_URL}/{bitlink}', headers=headers)
+    bitlink_url = parsed_url.netloc + parsed_url.path
+    response = requests.get(f'{BITLINKS_API_URL}/{bitlink_url}', headers=headers)
     if response.ok:
         return True
 
@@ -18,7 +18,7 @@ def get_shorten_link(token, url):
     if response.ok:
         headers = {'Authorization': f'Bearer {token}'}
         data_url = {'long_url': url}
-        response = requests.post(BITLINKS_URL, headers=headers, json=data_url)
+        response = requests.post(BITLINKS_API_URL, headers=headers, json=data_url)
         if response.ok:
             bitlink = response.json().get('link')
             return bitlink
@@ -27,7 +27,7 @@ def get_shorten_link(token, url):
 def get_count_cliks(token, url):
     headers = {'Authorization': f'Bearer {token}'}
     bitlink = url.replace('https://', '').replace('http://', '')
-    clicks_bitlink_link = f'{BITLINKS_URL}/{bitlink}/clicks/summary'
+    clicks_bitlink_link = f'{BITLINKS_API_URL}/{bitlink}/clicks/summary'
     response = requests.get(clicks_bitlink_link, headers=headers)
     response.raise_for_status()
     click_count = response.json()['total_clicks']
