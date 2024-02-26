@@ -9,23 +9,12 @@
 1. Зарегистрироваться на сайте [bit.ly](https://bit.ly) и сгенерировать с скопировать токен   
    ("Settings" -> "Developer settings" -> "API" -> "Enter password" -> "Access token:".
 3. Скачать проект на компьютер.
-4. Создать переменную BITLY_TOKEN выполнив команду:
+4. Создать текстовый файл с расширением .env со строкой
 
-   Для Linux и macOS в Shell:
-   
-        $ export BITLY_TOKEN=ВАШ_ТОКЕН
-   
-   Для Windows в командрой строке:
-
-           C:\> set BITLY_TOKEN=ВАШ_ТОКЕН
-   Для проверки можете ввести:
-   
-        С:\> echo %BITLY_TOKEN%
-
-
+         BITLY_TOKEN=ВАШ_ТОКЕН
 5. Убедитесь, что у вас уже установлен Python 3. Выполните команду для установки необходимых зависимостей: 
 
-        pip install -r requirements.txt
+         pip install -r requirements.txt
 
 ## Примеры использования
 
