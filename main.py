@@ -19,6 +19,7 @@ def shorten_link(token, url):
     headers = {'Authorization': f'Bearer {token}'}
     long_url = {'long_url': url}
     response = requests.post(BITLY_API, headers=headers, json=long_url)
+    response.raise_for_status()
     bitlink = response.json().get('link')
     return bitlink
 
