@@ -27,9 +27,13 @@
     Введите ссылку: https://dvmn.org/t/middle-python-dev-before-you-finish-the-course/
     Короткая ссылка: https://bit.ly/48rxxti
 
-### Для просмотра статистики переходов по ссылке (битли), введите интересующий адрес. Например:
-    $ python main.py
-    Введите ссылку:  https://bit.ly/48rxxti
+### Для просмотра статистики переходов по ссылке (битли), введите интересующий адрес. 
+    $ python main.py <ссылка для сокращения или битлинк>
+#### Например:
+    $ python main.py https://dvmn.org/t/middle-python-dev-before-you-finish-the-course/
+    Короткая ссылка: https://bit.ly/48rxxti
+##### Или:
+    $ python main.py https://bit.ly/48rxxti
     По ссылке https://bit.ly/48rxxti
     было совершено 5 кликов
 #### Примечание:
@@ -37,3 +41,6 @@
 
       При проверке количества кликов ошибка:
       402 Client Error: Payment Required for url: https://api-ssl.bitly.com/v4/bitlinks/bit.ly/48rxxti/clicks/summary
+
+#### Цель проекта
+Код написан в образовательных целях на онлайн-курсе для веб-разработчиков [dvmn.org.](https://dvmn.org/)
