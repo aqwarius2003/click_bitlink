@@ -38,7 +38,8 @@ def count_cliks(token, url):
 
 def main():
     load_dotenv()
-    token = os.environ.get('BITLY_TOKEN')
+    token = os.environ['BITLY_TOKEN']
+
     arg_parser = ArgumentParser(
         description='Скрипт сокращения ссылок с помощью bitlink '
                     'и отображения количества переходов по ним.'
